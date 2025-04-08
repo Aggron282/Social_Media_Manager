@@ -1,0 +1,30 @@
+.why-grid{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  padding:100px;
+  padding-top: 20px;
+}
+
+
+.why-container{
+  font-family: "Montserrat";
+  padding:30px;
+}
+
+.why-container .title{
+  font-size:50px;
+  text-align: center;
+}
+
+.why-item h1 {
+  color:darkgrey;
+  font-size:70px;
+  text-align: center;
+}
+.why-item p {
+  font-size:20px;
+  padding:30px;
+  padding-top:10px;
+  text-align: center;
+
+}
