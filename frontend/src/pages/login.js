@@ -1,0 +1,55 @@
+import React from "react";
+
+class Homepage extends React.Component{
+
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+      return (
+        <div class="login--page">
+          <div class="login-form">
+            <h3 class="title"> Welcome Back! </h3>
+            <p class="description"> We just need to verify your identity </p>
+            <div class="inner-container">
+                <form>
+                <div class="input-item">
+                  <label>
+                    Username
+                  </label>
+                  <input name = "username" placeholder="Enter username"/>
+                </div>
+                <div class="input-item">
+                  <label>
+                    Password
+                  </label>
+                  <input name = "password" type="password" placeholder="Enter password"/>
+                </div>
+
+                <button class="submit btn" type="submit">Submit</button>
+
+                </form>
+
+                <div class="links-container">
+                  <a href = "/create_account">
+                      Don't have an account? Create one here!
+                  </a>
+                  <br/>
+                  <a href = "/forgot">
+                      Forgot Password?
+                  </a>
+                </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )
+   }
+
+}
+
+export default Homepage;
