@@ -2,8 +2,12 @@
   display: grid;
   padding:200px;
   padding-top:100px;
+  background-position: center;
+  background-size: cover;
   grid-gap:50px;
+  background: linear-gradient(rgba(255,255,255,.9),rgba(255,255,255,.9),rgba(255,255,255,.2)),url("./../../imgs/background_home.png"); !important;
   grid-template-columns: repeat(2,1fr);
+
 }
 
 body{
@@ -39,7 +43,7 @@ html,body{
 }
 
 .signup{
-  background:#012B3A;
+  background:#012B3A !important;
   color:white;
   font-family: "Montserrat";
   font-weight: bold;
@@ -50,8 +54,8 @@ html,body{
 
 .learn
 {
-  background:white;
-  color:#012B3A;
+  background:white !important;
+  color:#012B3A !important;
   border:none;
   font-size:20px;
   text-decoration: underline;

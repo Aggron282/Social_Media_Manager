@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
-class Homepage extends React.Component{
+function Login (){
 
-  constructor(props){
-    super(props);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const tryLogin = async (e) => {
+    e.preventDefault();
+    const response = await axios.post("http://localhost:5000/login", {
+      username: formData.username,
+      password: formData.password,
+    });
+    console.log(response);
   }
 
-  render(){
       return (
         <div class="login--page">
           <div class="login-form">
@@ -18,16 +33,28 @@ class Homepage extends React.Component{
                   <label>
                     Username
                   </label>
-                  <input name = "username" placeholder="Enter username"/>
-                </div>
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    placeholder="Enter username"
+                    className={`input-field`}
+                  />                </div>
                 <div class="input-item">
                   <label>
                     Password
                   </label>
-                  <input name = "password" type="password" placeholder="Enter password"/>
-                </div>
+                  <input
+                    type="text"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Enter password"
+                    className={`input-field`}
+                  />                </div>
 
-                <button class="submit btn" type="submit">Submit</button>
+                <button class="submit btn" type="submit" onClick = {tryLogin}>Submit</button>
 
                 </form>
 
@@ -48,8 +75,8 @@ class Homepage extends React.Component{
         </div>
 
       )
-   }
+
 
 }
 
-export default Homepage;
+export default Login;

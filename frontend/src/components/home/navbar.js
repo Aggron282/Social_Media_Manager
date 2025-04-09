@@ -1,4 +1,5 @@
 import DashImg from "./../../imgs/dash_img.png"
+import { Link } from 'react-router-dom';
 
 function Navbar(){
   return(<nav class="navbar">
@@ -16,8 +17,8 @@ function Navbar(){
     </ul>
 
     <div class="navbar-right">
-      <a href="#" class="login-link">Log in</a>
-      <a href="#" class="btn-primary">Start your free trial</a>
+      <Link to="/login" class="login-link">Login</Link>
+      <Link to="/create_account" class="login-link">Create Account</Link>
     </div>
   </nav>
   )
