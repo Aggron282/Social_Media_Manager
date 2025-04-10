@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+    }
+
+  </style>
+</head>
+<body>
+
+
+  <script>
+    function toggleDropdown() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+    window.addEventListener("click", function(e) {
+      if (!e.target.closest(".sm_dashboard-avatar-button")) {
+        document.getElementById("dropdownMenu").classList.remove("show");
+      }
+    });
+  </script>
+</body>
+</html>

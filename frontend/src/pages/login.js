@@ -15,11 +15,17 @@ function Login (){
 
   const tryLogin = async (e) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:5000/login", {
+    const {data} = await axios.post("http://localhost:5000/login", {
       username: formData.username,
       password: formData.password,
     });
-    console.log(response);
+
+    if(data.user != null){
+        window.location.assign("/dashboard");
+    }else{
+      alert("Wrong Credentials");
+    }
+
   }
 
       return (
