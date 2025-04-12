@@ -1,0 +1,40 @@
+.info-section{
+  padding:30px;
+}
+
+.detail-container{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-gap: 20px;
+  padding:200px;
+  padding-top:0;
+  padding-bottom: 50px;
+}
+
+.detail-container .img-container img{
+  width:100%;
+  border-radius:10px;
+}
+
+.detail-container  .text-container{
+  font-family: "Montserrat";
+  padding:50px;
+
+}
+
+.detail-container .text-container h2{
+  font-size: 30px;
+}
+
+.detail-container .text-container p{
+  font-size: 18px;
+}
+
+.learn-more{
+  border:none;
+  border-radius:10px;
+  font-size:20px;
+  background:black;
+  color:white;
+  padding:20px;
+}

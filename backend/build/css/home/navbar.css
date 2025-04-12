@@ -1,0 +1,61 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 40px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.navbar-left .logo {
+  height: 50px;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.navbar-menu li a {
+  font-family: "Montserrat";
+  text-decoration: none;
+  color: #002c3f;
+  font-weight: 500;
+  font-size: 15px;
+  position: relative;
+}
+
+.navbar-menu li a:hover {
+  color: #ff4500;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.login-link {
+  text-decoration: none;
+  color: #002c3f;
+  font-family: "Montserrat";
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #002c3f;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-family: "Montserrat";
+  font-size: 16px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #004361;
+}
