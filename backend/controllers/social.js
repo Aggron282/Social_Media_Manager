@@ -6,6 +6,56 @@ const axios = require("axios");
 const User = require("./../models/User.js");
 const mongoose = require("mongoose");
 
+
+const MetaCallback = async (req, res) => {
+  const { code } = req.query;
+
+  if (!code) return res.status(400).send("Missing code");
+
+  try {
+    const tokenResponse = await axios.get('https://graph.facebook.com/v18.0/oauth/access_token', {
+      params: {
+        client_id: META_CLIENT,
+        client_secret: META_SECRET,
+        redirect_uri: META_REDIRECT,
+        code,
+      }
+    });
+
+    const { access_token, token_type, expires_in } = tokenResponse.data;
+
+    const userId = req.session.userId;
+    const user = await User.findById(userId);
+
+    if (!user) return res.status(404).send("User not found");
+
+    const platform = "facebook";
+
+    const existing = user.socialMedia.find(acc => acc.platform === platform);
+    if (existing) {
+      existing.key.accessToken = access_token;
+      existing.key.expiresAt = new Date(Date.now() + expires_in * 1000);
+    } else {
+      user.socialMedia.push({
+        platform,
+        username: "",
+        password: "",
+        key: {
+          accessToken: access_token,
+          expiresAt: new Date(Date.now() + expires_in * 1000),
+        }
+      });
+    }
+
+    await user.save();
+
+    res.redirect(`${process.env.CLIENT_URL || 'http://localhost:3000'}/dashboard/${userId}`);
+  } catch (err) {
+    console.error("Facebook OAuth error:", err.response?.data || err.message);
+    res.status(500).send("Failed to complete Facebook OAuth");
+  }
+};
+
 const LinkedinStart = (req, res) => {
   const scope = 'w_member_social';
   const state = 'optional_csrf_token';
@@ -123,6 +173,7 @@ const LinkedinCallback = async (req, res) => {
 };
 
 module.exports.GetUser = GetUser;
+module.exports.MetaCallback = MetaCallback;
 module.exports.LinkedinCallback = LinkedinCallback;
 module.exports.LinkedinStart = LinkedinStart;
 module.exports.MetaStart = MetaStart;
