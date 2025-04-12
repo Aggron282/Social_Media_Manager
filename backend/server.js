@@ -44,12 +44,12 @@ app.use(session({
 
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 
 app.use(authRoutes);
 app.use(socialRoutes);
 
-app.use(express.json());
 
 app.get('/data-deletion', (req, res) => {
   res.status(200).send(`

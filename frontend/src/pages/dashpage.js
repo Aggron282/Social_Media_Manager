@@ -21,9 +21,9 @@ class DashPage extends React.Component {
     var userId = segments[2];
 
     userId = userId.replace(":", "");
-
+    var domain = process.env.DOMAIN || "http://localhost:5000";
     axios
-      .get(`http://localhost:5000/user/${userId}`, {
+      .get(`${domain}/user/${userId}`, {
         withCredentials: true,
       })
       .then((res) => {

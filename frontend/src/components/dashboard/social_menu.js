@@ -36,7 +36,8 @@ class SocialMenu extends React.Component {
     const path = window.location.pathname;
     const segments = path.split("/");
     let userId = segments[2].replace(":", "");
-    window.location.href = `http://localhost:5000/auth/${platformName}/userId=${userId}`;
+    var domain = process.env.DOMAIN || "http://localhost:5000";
+    window.location.href = `${domain}/auth/${platformName}/userId/${userId}`;
   };
 
   renderSocialItems = () => {

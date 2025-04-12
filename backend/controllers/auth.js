@@ -5,22 +5,31 @@ const back_port = process.env.DOMAIN || "http://localhost:5000/"
 
 const Login = async (req, res) => {
   try {
+    console.log(req.body)
 
-    const foundUser = await User.findOne({ username: req.body.username });
+    if(req.body){
+      const foundUser = await User.findOne({ username: req.body.username });
 
-    if (!foundUser) {
-      return res.json({ error: "No user found with this username", user: null });
+      if (!foundUser) {
+        return res.json({ error: "No user found with this username", user: null });
+      }
+
+      const match = await foundUser.matchPassword(req.body.password);
+
+      if (match) {
+        req.session.userId = foundUser._id;
+        console.log(req.session , "s")
+        res.json({ error: null, userId: foundUser._id });
+      } else {
+        res.json({ error: "Invalid Credentials", user: null });
+      }
+    }
+    else{
+      console.log("Request is NULL")
+      throw new Error("Request is NULL");
     }
 
-    const match = await foundUser.matchPassword(req.body.password);
 
-    if (match) {
-      req.session.userId = foundUser._id;
-      console.log(req.session , "s")
-      res.json({ error: null, userId: foundUser._id });
-    } else {
-      res.json({ error: "Invalid Credentials", user: null });
-    }
   }
   catch (error) {
     console.error(error);

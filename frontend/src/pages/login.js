@@ -16,8 +16,9 @@ function Login (){
   const tryLogin = async (e) => {
 
     e.preventDefault();
-
-    const {data} = await axios.post("http://localhost:5000/login", {
+    var domain = process.env.DOMAIN || "http://localhost:5000";
+    console.log(`${domain}/login`)
+    const {data} = await axios.post(`${domain}/login`, {
       username: formData.username,
       password: formData.password,
     });

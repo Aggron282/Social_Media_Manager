@@ -7,6 +7,8 @@ const CreateAccount = () => {
   const [isComplete, setIsComplete] = useState(false);
   const [inputErrors, setInputErrors] = useState({});
 
+  var domain = process.env.DOMAIN || "http://localhost:5000";
+
   const [formData, setFormData] = useState({
     fullName: "",
     username: "",
@@ -67,7 +69,7 @@ const CreateAccount = () => {
       setStep((prev) => prev + 1);
     } else {
       try {
-        const response = await axios.post("http://localhost:5000/create_account", {
+        const response = await axios.post(`${domain}/create_account`, {
           name: formData.fullName,
           username: formData.username,
           email: formData.email,
@@ -77,7 +79,7 @@ const CreateAccount = () => {
 
         if (response.data.error) {
           alert(`Error: ${response.data.error}`);
-          setStep(1); 
+          setStep(1);
         } else {
           setIsComplete(true);
         }
