@@ -1,11 +1,14 @@
 import DashImg from "./../../imgs/dash_img.png"
+import { useScrollAnimation } from "./../animator.js";
 
 function Info(){
+  const ref2 = useScrollAnimation("fade-in-up", 1000);
+  const ref3 = useScrollAnimation("fade-in-up", 1200);
+  const ref = useScrollAnimation("fade-in-up", 1200);
   return(
-    <section class="info-section">
+    <section class="info-section" >
 
-
-        <div class="detail-container">
+        <div class="detail-container" ref ={ref}>
 
           <div class="img-container">
             <img src = {DashImg} />
@@ -26,7 +29,7 @@ function Info(){
 
         </div>
 
-        <div class="detail-container">
+        <div class="detail-container" ref={ref2}>
 
 
 
@@ -48,7 +51,7 @@ function Info(){
         </div>
 
 
-        <div class="detail-container">
+        <div class="detail-container" ref={ref3}>
 
           <div class="img-container">
             <img src = {DashImg} />

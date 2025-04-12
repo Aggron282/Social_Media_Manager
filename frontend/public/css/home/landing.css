@@ -7,7 +7,9 @@
   grid-gap:50px;
   background: linear-gradient(rgba(255,255,255,.9),rgba(255,255,255,.9),rgba(255,255,255,.2)),url("./../../imgs/background_home.png"); !important;
   grid-template-columns: repeat(2,1fr);
-
+  transform:translateY(500px);
+  opacity:0;
+  transition: all .4s;
 }
 
 body{

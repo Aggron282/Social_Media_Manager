@@ -8,7 +8,17 @@
 
 .why-container{
   font-family: "Montserrat";
+  transition: all .4s;
   padding:30px;
+  opacity: 0;
+  transform: translateX(-400px);
+
+}
+
+.what-section{
+  transition: all .5s;
+  transform: rotateX(90deg);
+  opacity: 0;
 }
 
 .why-container .title{

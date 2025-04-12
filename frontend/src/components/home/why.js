@@ -1,8 +1,13 @@
 import DashImg from "./../../imgs/dash_img.png"
+import { useScrollAnimation } from "./../animator.js";
 
 function Why(){
+
+
+ const ref = useScrollAnimation("fade-in-up", 500);
+
   return (
-    <section class="why-container">
+    <section class="why-container" ref = {ref}>
 
       <h1 class="title">We will Echo your message! </h1>
 

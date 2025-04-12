@@ -9,16 +9,24 @@
   padding:200px;
   padding-top:0;
   padding-bottom: 50px;
+  opacity:0;
+  transform: translateY(-300px);
+  transition: all .5s;
 }
 
 .detail-container .img-container img{
   width:100%;
-  border-radius:10px;
+  /* opacity:0; */
+  transition: .7s;
+  /* transform: scale(0);*/
+   border-radius:10px;
 }
 
 .detail-container  .text-container{
   font-family: "Montserrat";
   padding:50px;
+  /* opacity: 0;
+  transform: rotateX(90deg); */
 
 }
 

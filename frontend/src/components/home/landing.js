@@ -1,9 +1,13 @@
 import LandingImg from "./../../imgs/landing_img.png"
 import { Link } from 'react-router-dom';
+import { useScrollAnimation } from "./../animator.js";
 
 function Landing(){
+  const ref = useScrollAnimation("fade-in-up", 300);
+
+
   return(
-    <section class="landing-section">
+    <section class="landing-section" ref = {ref}>
 
         <div class="img-container">
           <img src = {LandingImg} />

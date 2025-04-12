@@ -1,0 +1,98 @@
+
+/* 1. Fade In Up */
+.fade-in-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 2. Slide In Left */
+.slide-in-left {
+  opacity: 1;
+  transform: translateX(0);
+}
+.box.slide-in-left {
+  transform: translateX(-100px);
+}
+
+/* 3. Slide In Right */
+.slide-in-right {
+  opacity: 1;
+  transform: translateX(0);
+}
+.box.slide-in-right {
+  transform: translateX(100px);
+}
+
+/* 4. Zoom In */
+.zoom-in {
+  opacity: 1;
+  transform: scale(1);
+}
+.box.zoom-in {
+  transform: scale(0.5);
+}
+
+/* 5. Rotate In */
+.rotate-in {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+.box.rotate-in {
+  transform: rotate(-90deg);
+}
+
+/* 6. Flip In X */
+.flip-in-x {
+  opacity: 1;
+  transform: rotateX(0);
+}
+.box.flip-in-x {
+  transform: rotateX(90deg);
+  transform-origin: top;
+}
+
+/* 7. Flip In Y */
+.flip-in-y {
+  opacity: 1;
+  transform: rotateY(0);
+}
+.box.flip-in-y {
+  transform: rotateY(90deg);
+  transform-origin: left;
+}
+
+/* 8. Fade In Scale */
+.fade-scale {
+  opacity: 1;
+  transform: scale(1);
+}
+.box.fade-scale {
+  transform: scale(1.2);
+}
+
+/* 9. Blur In */
+.blur-in {
+  opacity: 1;
+  filter: blur(0);
+}
+.box.blur-in {
+  filter: blur(8px);
+}
+
+/* 10. Pop Up Bounce */
+@keyframes pop-in {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pop-in {
+  animation: pop-in 0.6s ease-out forwards;
+}
