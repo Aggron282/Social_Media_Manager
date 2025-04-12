@@ -12,16 +12,17 @@ var socialRoutes = require("./routes/social_routes.js")
 
 var app = express();
 
+app.use(express.static(path.join(__dirname, "build")));
+
 
 app.use(cors({
-  origin: "http://localhost:3000",  // Your React frontend
+  origin: ["http://localhost:3000","https://socialmediamanager-4e8ed621d69b.herokuapp.com/"],  // Your React frontend
   credentials: true                 // ✅ allow cookies
 }));
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'secret_key',
   resave: false,
-   domain: "socialapp.local",
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
@@ -62,7 +63,6 @@ app.get('/data-deletion', (req, res) => {
   `);
 });
 
-app.use(express.static(path.join(__dirname, "build")));
 
 
 app.get("*", (req, res) => {
