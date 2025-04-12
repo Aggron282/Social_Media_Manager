@@ -12,7 +12,8 @@ var socialRoutes = require("./routes/social_routes.js")
 
 var app = express();
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
 
 
 app.use(cors({
@@ -63,9 +64,8 @@ app.get('/data-deletion', (req, res) => {
 });
 
 
-
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });
 
 mongoose.connect(process.env.MONGODB_URI, {
