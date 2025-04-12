@@ -38,7 +38,6 @@ app.use(session({
   })
 }));
 
-const path = require("path");
 
 
 app.use(express.urlencoded({ extended: false }));
