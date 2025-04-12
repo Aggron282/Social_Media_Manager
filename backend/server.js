@@ -21,6 +21,8 @@ app.use(cors({
   credentials: true                 // ✅ allow cookies
 }));
 
+app.set('trust proxy', 1);
+
 app.use(session({
   secret: process.env.SESSION_SECRET || 'secret_key',
   resave: false,
