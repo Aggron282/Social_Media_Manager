@@ -12,20 +12,27 @@ var socialRoutes = require("./routes/social_routes.js")
 
 var app = express();
 
-app.use(cors());
+
+app.use(cors({
+  origin: "http://localhost:3000",  // Your React frontend
+  credentials: true                 // ✅ allow cookies
+}));
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'iofjrme',
+  secret: process.env.SESSION_SECRET || 'secret_key',
   resave: false,
+   domain: "socialapp.local",
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 1000 * 60 * 60 * 24
+    secure: false, // Only true in production with HTTPS
+    maxAge: 1000 * 60 * 60 * 24,
+    sameSite: 'lax', // ✅ THIS IS IMPORTANT
+    path: '/',       // ✅ ensures cookie applies to all routes
   },
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
-    collectionName: 'sessions',
+    collectionName: 'session',
     ttl: 14 * 24 * 60 * 60,
   })
 }));
@@ -35,8 +42,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(authRoutes);
+app.use(socialRoutes);
 
 app.use(express.json());
+
+app.get('/data-deletion', (req, res) => {
+  res.status(200).send(`
+    <html>
+      <head><title>Data Deletion</title></head>
+      <body>
+        <h1>Data Deletion Request</h1>
+        <p>If you want your data removed from our system, please email us at <strong>you@example.com</strong>.</p>
+        <p>We’ll respond within 48 hours.</p>
+      </body>
+    </html>
+  `);
+});
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,

@@ -13,7 +13,9 @@ const Login = async (req, res) => {
     const match = await foundUser.matchPassword(req.body.password);
 
     if (match) {
-      res.json({ error: null, user: foundUser._id });
+      req.session.userId = foundUser._id;
+      console.log(req.session , "s")
+      res.json({ error: null, userId: foundUser._id });
     } else {
       res.json({ error: "Invalid Credentials", user: null });
     }
@@ -48,14 +50,14 @@ const CreateAccount = async (req, res) => {
     console.log(new_user);
 
     await new_user.save();
-
+    req.session.userId = new_user._id;
     return res.json({
       error: null,
-      user: new_user._id
+      userId: new_user._id
     });
 
   } catch (error) {
-    console.error(error);
+
     res.status(500).json({ error: error.message || error, user: null });
   }
 };

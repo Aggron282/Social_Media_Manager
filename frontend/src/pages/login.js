@@ -14,21 +14,23 @@ function Login (){
   };
 
   const tryLogin = async (e) => {
+
     e.preventDefault();
+
     const {data} = await axios.post("http://localhost:5000/login", {
       username: formData.username,
       password: formData.password,
     });
 
-    if(data.user != null){
-        window.location.assign("/dashboard");
+    if(data.userId != null){
+        window.location.assign(`/dashboard/:${data.userId}`);
     }else{
       alert("Wrong Credentials");
     }
 
   }
 
-      return (
+  return (
         <div class="login--page">
           <div class="login-form">
             <h3 class="title"> Welcome Back! </h3>
@@ -80,8 +82,7 @@ function Login (){
 
         </div>
 
-      )
-
+    )
 
 }
 

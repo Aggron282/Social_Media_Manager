@@ -77,7 +77,7 @@ const CreateAccount = () => {
 
         if (response.data.error) {
           alert(`Error: ${response.data.error}`);
-          setStep(1); // Reset to step 1 on error
+          setStep(1); 
         } else {
           setIsComplete(true);
         }

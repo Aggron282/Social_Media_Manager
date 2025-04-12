@@ -4,9 +4,12 @@ const bcrypt = require('bcryptjs');
 // Define the SocialMedia schema
 const SocialMediaSchema = new mongoose.Schema({
   platform: { type: String, required: true },
-  username: { type: String, required: true },
-  password: { type: String, required: true },
-  key: { type: String, required: true },
+  username: { type: String, required: false },
+  password: { type: String, required: false },
+  key: {
+  accessToken: String,
+  expiresAt: Date,
+  }
 });
 
 // Define the User schema
