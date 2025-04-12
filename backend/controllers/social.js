@@ -6,6 +6,8 @@ const axios = require("axios");
 const User = require("./../models/User.js");
 const mongoose = require("mongoose");
 
+const front_port = process.env.DOMAIN || "http://localhost:3000/"
+const back_port = process.env.DOMAIN || "http://localhost:5000/"
 
 const MetaCallback = async (req, res) => {
   const { code } = req.query;
@@ -163,7 +165,7 @@ const LinkedinCallback = async (req, res) => {
     req.session.linkedinAccessToken = access_token;
     req.session.linkedinTokenExpiry = Date.now() + expires_in * 1000;
 
-    res.redirect(`http://localhost:3000/dashboard/${userId}`);
+    res.redirect(`dashboard/${userId}`);
 
   } catch (error) {
     console.error('Error exchanging code:', error.response?.data || error.message);
