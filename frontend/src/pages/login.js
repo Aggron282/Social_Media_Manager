@@ -18,6 +18,7 @@ function Login (){
     e.preventDefault();
     var domain = process.env.DOMAIN || "http://localhost:5000";
     console.log(`${domain}/login`)
+    console.log(formData);
     const {data} = await axios.post(`${domain}/login`, {
       username: formData.username,
       password: formData.password,
@@ -55,7 +56,7 @@ function Login (){
                     Password
                   </label>
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     value={formData.password}
                     onChange={handleChange}

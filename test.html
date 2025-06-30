@@ -5,26 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Simple Dashboard</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f3f4f6;
-    }
+  .tea-showcase-section {
+    position: relative;
+    background: linear-gradient(to right, #f9fafb, #e5e7eb);
+    padding: 5rem 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+  }
 
-  </style>
+  .tea-showcase-bg-watermark {
+    position: absolute;
+    background: url('/mnt/data/file.png') no-repeat center;
+    background-size: 400px;
+    opacity: 0.05;
+    top: 20%;
+    left: 5%;
+    width: 500px;
+    height: 500px;
+    z-index: 0;
+  }
+
+  .tea-showcase-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 3rem;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .tea-showcase-text {
+    flex: 1 1 500px;
+  }
+
+  .tea-showcase-title {
+    font-size: 3rem;
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .tea-showcase-subtitle {
+    font-size: 1.5rem;
+    color: #3b82f6;
+    margin-bottom: 2rem;
+  }
+
+  .tea-showcase-paragraph {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #374151;
+    margin-bottom: 1.5rem;
+  }
+
+  .tea-showcase-image img {
+    max-width: 400px;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    animation: fadeIn 1s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
 </head>
 <body>
 
+  <section class="tea-showcase-section">
+    <div class="tea-showcase-bg-watermark"></div>
+    <div class="tea-showcase-content">
+      <div class="tea-showcase-text">
+        <h1 class="tea-showcase-title">Crafted Iced Teas, Elevated</h1>
+        <h3 class="tea-showcase-subtitle">Small Batch. Bold Flavor. Always Refreshing.</h3>
+        <p class="tea-showcase-paragraph">
+          At Pita Jungle, our teas are more than just beverages — they’re an experience. Infused with the boldness of handpicked botanicals and perfectly balanced citrus, each sip tells a story of freshness and finesse.
+        </p>
+        <p class="tea-showcase-paragraph">
+          Whether you’re cooling down during summer heat or pairing with your favorite dish, our iced teas deliver clarity, energy, and rich taste with every pour.
+        </p>
+      </div>
+      <div class="tea-showcase-image">
+        <img src="/mnt/data/file.png" alt="Glass of Iced Tea with Citrus and Mint" />
+      </div>
+    </div>
+  </section>
 
-  <script>
-    function toggleDropdown() {
-      document.getElementById("dropdownMenu").classList.toggle("show");
-    }
-    window.addEventListener("click", function(e) {
-      if (!e.target.closest(".sm_dashboard-avatar-button")) {
-        document.getElementById("dropdownMenu").classList.remove("show");
-      }
-    });
-  </script>
 </body>
 </html>

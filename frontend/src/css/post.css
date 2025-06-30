@@ -1,0 +1,168 @@
+.modal-overlay {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  position: fixed;
+  left:0;
+  top:0;
+}
+
+.modal-content h2{
+  color:black;
+  font-size:30px;
+  font-family: "Montserrat";
+  font-weight: 500;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  justify-self: center;
+  align-items: center;
+  padding:30px;
+  padding-right:50px;
+  position: fixed;
+  z-index:101;
+  top:2.5%;
+  padding-top:10px;
+  max-width: 500px;
+}
+
+.modal-wrapper--post {
+  height:100vh;
+  width:100%;
+  position: fixed;
+  top:0;
+  left:0;
+  opacity:0;
+  background:black;
+  z-index:99;
+}
+
+.modal-wrapper--post--active{
+  opacity:.75;
+}
+
+.modal-content form input {
+  border:none;
+  border-bottom:2px solid black;
+  padding-bottom:20px;
+  padding:0;
+  padding-top:10px;
+  padding-bottom:20px;
+}
+
+.input-wrapper {
+position: relative;
+}
+
+.input-wrapper::after {
+content: "";
+position: absolute;
+bottom: 20px;
+left: 0;
+height: 2px;
+width: 0%;
+background: lightblue;
+transition: width 0.3s ease;
+}
+
+/* This is the key: when the input is focused, apply style to the wrapper */
+.input-wrapper:focus-within::after {
+width: 100%;
+}
+
+
+.modal-content form input[type="text"],
+.modal-content form textarea {
+  width: 100%;
+  font-size: 1.6rem;
+  outline: none !important;
+  margin-bottom:20px;
+  font-family: "Montserrat";
+}
+
+.modal-content textarea {
+  resize: none;
+  height: 100px;
+  padding:10px;
+  border-radius:10px;
+}
+
+.modal-content .char-count {
+  text-align: right;
+  font-size: 0.85rem;
+  color: darkgrey;
+  margin-bottom: 10px;
+}
+
+.modal-content button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.modal-content .upload-zone {
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+.modal-content .upload-zone:hover {
+  background-color: #f0f8ff;
+  border-color: #0077cc;
+}
+
+.modal-content .upload-zone.uploaded {
+  border-color: #4caf50;
+  background-color: #e8f5e9;
+}
+
+.modal-content .upload-zone p {
+  margin-top: 10px;
+  color: #555;
+  font-size:1.6rem;
+}
+
+.modal-content .upload-zone span {
+  color: #0077cc;
+  text-decoration: underline;
+}
+
+.modal-content .upload-icon {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+
+.modal-content .post-btn{
+  background:#87cefa;
+  color:black;
+  width:70%;
+  border-radius:10px;
+  /* padding:17px; */
+  font-size:15px;
+  outline:none;
+  border:none;
+  font-weight:bold;
+  box-shadow:0px 0px 10px rgba(0,0,0,.3);
+  border-color:#87cefa;
+}
+
+.modal-content .cancel-btn {
+  font-family: "Montserrat";
+  background:black;
+  color: #ccc;
+  border-radius:5px;
+}

@@ -1,9 +1,9 @@
-require('dotenv').config();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
 var port = process.env.PORT || 5000;
 var express = require("express");
 var session = require("express-session");
-var path = require("path");
 var cors = require("cors");
 const MongoStore = require("connect-mongo");
 var mongoose = require("mongoose");

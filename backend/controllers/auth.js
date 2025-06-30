@@ -5,17 +5,17 @@ const back_port = process.env.DOMAIN || "http://localhost:5000/"
 
 const Login = async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body.username )
 
-    if(req.body){
+    if(req.body != null){
       const foundUser = await User.findOne({ username: req.body.username });
-
+      console.log(foundUser)
       if (!foundUser) {
         return res.json({ error: "No user found with this username", user: null });
       }
 
       const match = await foundUser.matchPassword(req.body.password);
-
+      console.log(foundUser,match,req.body.password)
       if (match) {
         req.session.userId = foundUser._id;
         console.log(req.session , "s")
@@ -50,7 +50,7 @@ const CreateAccount = async (req, res) => {
     console.log(foundUser);
 
     const { username, password, email,name } = req.body;
-
+    console.log(username,password,email,name);
     const new_user = new User({
          name,
          username,

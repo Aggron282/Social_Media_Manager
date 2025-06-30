@@ -1,0 +1,83 @@
+:root {
+  --blue: #0078d7;
+  --glass: rgba(255, 255, 255, 0.1);
+  --text: #ffffff;
+  --bg: #0d1b2a;
+}
+
+body {
+  background-color: var(--bg);
+  background-image: linear-gradient(to bottom right, #001f3f, #003366);
+  color: var(--text);
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+}
+
+.policy-header {
+  background-color: var(--blue);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.policy-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.policy-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--glass);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 120, 215, 0.2);
+}
+
+.policy-container h2 {
+  border-left: 4px solid var(--blue);
+  padding-left: 0.5rem;
+  margin-top: 2rem;
+}
+
+.policy-container p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.policy-footer {
+  text-align: center;
+  margin: 3rem 0;
+  color: #bbb;
+  font-size: 0.9rem;
+}
+
+/* iPhone SE to iPhone 14 */
+@media screen and (max-width: 430px) {
+  .policy-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .policy-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .policy-container h2 {
+    font-size: 1.1rem;
+  }
+
+  .policy-container p {
+    font-size: 0.95rem;
+  }
+}
+
+/* iPad Landscape and Portrait */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .policy-container {
+    padding: 2rem;
+    margin: 2rem 1rem;
+  }
+}

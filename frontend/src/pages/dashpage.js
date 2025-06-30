@@ -1,6 +1,8 @@
 import React from "react";
 import Socials from "./../components/dashboard/socials.js";
 import SocialMenu from './../components/dashboard/social_menu.js';
+import PostMenu from './../components/dashboard/post_menu.js';
+
 import axios from "axios";
 
 class DashPage extends React.Component {
