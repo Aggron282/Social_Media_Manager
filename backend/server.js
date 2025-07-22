@@ -42,6 +42,8 @@ app.use(session({
 }));
 
 
+// Serve static files from React
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -49,6 +51,12 @@ app.use(express.json());
 
 app.use(authRoutes);
 app.use(socialRoutes);
+
+
+// Serve React frontend on unmatched routes
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 
 app.get('/data-deletion', (req, res) => {

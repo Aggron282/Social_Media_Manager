@@ -21,8 +21,7 @@ class DashPage extends React.Component {
     const segments = path.split("/");
 
     var userId = segments[2];
-
-    userId = userId.replace(":", "");
+    console.log(userId)
     var domain = process.env.DOMAIN || "http://localhost:5000";
     axios
       .get(`${domain}/user/${userId}`, {
@@ -43,38 +42,50 @@ class DashPage extends React.Component {
      this.setState(prev => ({ showSocialMenu: !prev.showSocialMenu }));
    }
 
-  render(){
-    if(this.state.user == null){
-      return <div> ....Loading </div>
-    }
-    console.log(this.state.user);
-    return(
-      <div class="sm_dashboard-wrapper">
-        <nav class="sm_dashboard-navbar">
-          <div class="sm_dashboard-logo">MyLogo</div>
-          <div>
-            <button class="sm_dashboard-avatar-button" onclick="toggleDropdown()">
-              <div class="sm_dashboard-avatar">
-                <img src="https://via.placeholder.com/40" alt="Profile" />
-              </div>
-            </button>
-            <div id="dropdownMenu" class="sm_dashboard-dropdown-content">
-              <button>Profile</button>
-              <button>Settings</button>
-              <button>Logout</button>
-            </div>
-          </div>
-        </nav>
+   render() {
 
-        <main class="sm_dashboard-container">
-          <div class="sm_dashboard-content">
-          <Socials toggleSocialMenu = {this.toggleSocialMenu} socialMedia = {this.state.user.socialMedia} />
-          {this.state.showSocialMenu && <SocialMenu  socialMedia = {this.state.user.socialMedia} toggleSocialMenu = {this.toggleSocialMenu} />}
-          </div>
-        </main>
+  const { user, loading, showSocialMenu } = this.state;
+  console.log(user)
+  if (loading) return <div>...Loading</div>;
+
+  if (!user) {
+    return (
+      <div style={{ color: "red", padding: "20px" }}>
+        Failed to load user. Please check if the user ID is valid.
       </div>
-    )
+    );
   }
+
+  return (
+    <div className="sm_dashboard-wrapper">
+      <nav className="sm_dashboard-navbar">
+        <div className="sm_dashboard-logo">MyLogo</div>
+        <div>
+          <button className="sm_dashboard-avatar-button" onClick={this.toggleDropdown}>
+            <div className="sm_dashboard-avatar">
+              <img src="https://via.placeholder.com/40" alt="Profile" />
+            </div>
+          </button>
+          <div id="dropdownMenu" className="sm_dashboard-dropdown-content">
+            <button>Profile</button>
+            <button>Settings</button>
+            <button>Logout</button>
+          </div>
+        </div>
+      </nav>
+
+      <main className="sm_dashboard-container">
+        <div className="sm_dashboard-content">
+          <Socials toggleSocialMenu={this.toggleSocialMenu} socialMedia={user.socialMedia} />
+          {showSocialMenu && (
+            <SocialMenu socialMedia={user.socialMedia} toggleSocialMenu={this.toggleSocialMenu} />
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}
+
 }
 
 

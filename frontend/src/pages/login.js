@@ -25,7 +25,7 @@ function Login (){
     });
 
     if(data.userId != null){
-        window.location.assign(`/dashboard/:${data.userId}`);
+        window.location.assign(`/dashboard/${data.userId}`);
     }else{
       alert("Wrong Credentials");
     }

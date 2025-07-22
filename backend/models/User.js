@@ -4,11 +4,16 @@ const bcrypt = require('bcryptjs');
 // Define the SocialMedia schema
 const SocialMediaSchema = new mongoose.Schema({
   platform: { type: String, required: true },
-  username: { type: String, required: false },
-  password: { type: String, required: false },
+  username: { type: String },
+  password: { type: String },
   key: {
-  accessToken: String,
-  expiresAt: Date,
+    accessToken: String,
+    expiresAt: Date,
+  },
+  meta: {
+    pageId: String,
+    pageToken: String,
+    instagramId: String,
   }
 });
 
@@ -18,10 +23,10 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  socialMedia: [SocialMediaSchema], // Array of social media accounts
+  socialMedia: [SocialMediaSchema],
 });
 
-// Middleware to hash password before saving it
+// Hash password before saving
 UserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
@@ -34,11 +39,10 @@ UserSchema.pre('save', async function (next) {
   }
 });
 
-// Method to check if password matches
+// Method to validate password
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Create and export the User model
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
