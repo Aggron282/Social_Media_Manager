@@ -94,10 +94,10 @@ mongoose.connect(process.env.MONGODB_URI, {
   app.use(express.static(path.join(__dirname, "client/build")));
 
   // All other routes (not API/backend) go to React
-  app.get(/^\/(?!api|auth|login|social|dashboard|static).*/, (req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
-  
+
 app.listen(port,()=>{
   console.log("App is running");
 });
