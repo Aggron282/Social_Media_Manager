@@ -45,7 +45,7 @@ class SocialMenu extends React.Component {
     return;
   }
 
-  const domain = process.env.REACT_APP_DOMAIN || "http://localhost:5000";
+  const domain = process.env.DOMAIN || "http://localhost:5000";
 
   if (platformName === "instagram") {
     window.location.href = `${domain}/auth/meta/userId/${userId}`;
