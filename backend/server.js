@@ -82,6 +82,7 @@ app.get('/data-deletion', (req, res) => {
 
 
 
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -90,6 +91,13 @@ mongoose.connect(process.env.MONGODB_URI, {
   .catch(err => console.log('MongoDB connection error:', err));
 
 
+  app.use(express.static(path.join(__dirname, "client/build")));
+
+  // All other routes (not API/backend) go to React
+  app.get(/^\/(?!api|auth|login|social|dashboard|static).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
+  
 app.listen(port,()=>{
   console.log("App is running");
 });
