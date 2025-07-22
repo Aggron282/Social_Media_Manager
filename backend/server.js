@@ -15,11 +15,18 @@ var app = express();
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 
+// Allow requests from your frontend domain
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://socialmediamanager-4e8ed621d69b.herokuapp.com'
+];
 
 app.use(cors({
-  origin: ["http://localhost:3000","https://socialmediamanager-4e8ed621d69b.herokuapp.com/"],  // Your React frontend
-  credentials: true                 // ✅ allow cookies
+  origin: allowedOrigins,
+  credentials: true,
 }));
+
+
 
 app.set('trust proxy', 1);
 

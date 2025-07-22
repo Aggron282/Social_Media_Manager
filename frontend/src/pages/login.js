@@ -56,7 +56,7 @@ function Login (){
                     Password
                   </label>
                   <input
-                    type="password"
+                    
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
