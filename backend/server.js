@@ -60,11 +60,6 @@ app.use(authRoutes);
 app.use(socialRoutes);
 
 
-// Serve React frontend on unmatched routes
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-
 
 app.get('/data-deletion', (req, res) => {
   res.status(200).send(`
@@ -77,6 +72,20 @@ app.get('/data-deletion', (req, res) => {
       </body>
     </html>
   `);
+});
+
+const frontendRoutes = [
+  "/",
+  "/dashboard/:userId",
+  "/login",
+  "/create_account",
+  "/forgot"
+];
+
+frontendRoutes.forEach(route => {
+  app.get(route, (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  });
 });
 
 
