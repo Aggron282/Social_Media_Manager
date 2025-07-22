@@ -76,7 +76,7 @@ app.get('/data-deletion', (req, res) => {
 
 const frontendRoutes = [
   "/",
-  "/dashboard/:userId",
+  "/dashboard/:id",
   "/login",
   "/create_account",
   "/forgot"
