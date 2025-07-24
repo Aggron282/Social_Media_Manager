@@ -1,10 +1,16 @@
 const router = require("express").Router();
 const socialController = require("../controllers/social.js");
-
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 router.get("/auth/meta/userId/", socialController.MetaStart);
 router.get("/meta/callback", socialController.MetaCallback);
 router.get('/auth/linkedin/callback', socialController.LinkedinCallback);
+
+
+router.post("/api/upload", upload.array("images"), (req, res) => {
+  res.json({ files: req.files });
+});
 
 router.get('/auth/facebook/userId/', socialController.MetaStart);
 router.get('/auth/linkedin/userId/', socialController.LinkedinStart);

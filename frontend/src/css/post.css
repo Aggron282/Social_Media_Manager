@@ -1,168 +1,165 @@
-.modal-overlay {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
+/* Poster.css */
+.poster-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  position: fixed;
-  left:0;
-  top:0;
+  z-index: 50;
 }
 
-.modal-content h2{
-  color:black;
-  font-size:30px;
-  font-family: "Montserrat";
-  font-weight: 500;
-}
-
-.modal-content {
+.poster-modal {
   background: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  width: 90%;
-  justify-self: center;
-  align-items: center;
-  padding:30px;
-  padding-right:50px;
-  position: fixed;
-  z-index:101;
-  top:2.5%;
-  padding-top:10px;
-  max-width: 500px;
-}
-
-.modal-wrapper--post {
-  height:100vh;
-  width:100%;
-  position: fixed;
-  top:0;
-  left:0;
-  opacity:0;
-  background:black;
-  z-index:99;
-}
-
-.modal-wrapper--post--active{
-  opacity:.75;
-}
-
-.modal-content form input {
-  border:none;
-  border-bottom:2px solid black;
-  padding-bottom:20px;
-  padding:0;
-  padding-top:10px;
-  padding-bottom:20px;
-}
-
-.input-wrapper {
-position: relative;
-}
-
-.input-wrapper::after {
-content: "";
-position: absolute;
-bottom: 20px;
-left: 0;
-height: 2px;
-width: 0%;
-background: lightblue;
-transition: width 0.3s ease;
-}
-
-/* This is the key: when the input is focused, apply style to the wrapper */
-.input-wrapper:focus-within::after {
-width: 100%;
-}
-
-
-.modal-content form input[type="text"],
-.modal-content form textarea {
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   width: 100%;
+  max-width: 650px;
+  padding: 32px;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.poster-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.grid img{
+  max-width:200px;
+  max-height: 200px;
+}
+
+.poster-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color:black !important;
+  margin-bottom: 16px;
+}
+
+.poster-input,
+.poster-textarea {
+  width: 95%;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
   font-size: 1.6rem;
-  outline: none !important;
-  margin-bottom:20px;
-  font-family: "Montserrat";
 }
 
-.modal-content textarea {
-  resize: none;
-  height: 100px;
-  padding:10px;
-  border-radius:10px;
+.poster-textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
-.modal-content .char-count {
-  text-align: right;
-  font-size: 0.85rem;
-  color: darkgrey;
-  margin-bottom: 10px;
+.poster-error {
+  color: #e53e3e;
+  font-size: 1.75rem;
+  margin-top: -12px;
+  margin-bottom: 16px;
 }
 
-.modal-content button {
-  padding: 10px 15px;
-  margin-right: 10px;
+.poster-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 26px;
+  margin-top: 0;
+}
+
+.poster-platform-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  border: 1px solid #ccc;
+  background: #f1f5f9;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
-.modal-content .upload-zone {
-  border: 2px dashed #aaa;
-  border-radius: 10px;
-  padding: 30px;
-  text-align: center;
+.poster-platform-btn.selected {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.poster-schedule {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.poster-schedule input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.poster-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.poster-back,
+.poster-next,
+.poster-submit {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s ease;
-  background-color: #f9f9f9;
+  transition: background 0.2s;
 }
 
-.modal-content .upload-zone:hover {
-  background-color: #f0f8ff;
-  border-color: #0077cc;
+.poster-back {
+  background: #f1f5f9;
 }
 
-.modal-content .upload-zone.uploaded {
-  border-color: #4caf50;
-  background-color: #e8f5e9;
+.poster-next {
+  background: #3b82f6;
+  color: white;
 }
 
-.modal-content .upload-zone p {
-  margin-top: 10px;
-  color: #555;
-  font-size:1.6rem;
+.poster-submit {
+  background: #16a34a;
+  color: white;
 }
 
-.modal-content .upload-zone span {
-  color: #0077cc;
-  text-decoration: underline;
+.poster-progress {
+  display: flex;
+  margin-top: 15px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
-.modal-content .upload-icon {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
+.poster-step {
+  flex: 1;
+  height: 6px;
+  margin: 0 4px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  transition: background 0.3s;
 }
 
-
-.modal-content .post-btn{
-  background:#87cefa;
-  color:black;
-  width:70%;
-  border-radius:10px;
-  /* padding:17px; */
-  font-size:15px;
-  outline:none;
-  border:none;
-  font-weight:bold;
-  box-shadow:0px 0px 10px rgba(0,0,0,.3);
-  border-color:#87cefa;
+.poster-step.active {
+  background: #2563eb;
 }
 
-.modal-content .cancel-btn {
-  font-family: "Montserrat";
-  background:black;
-  color: #ccc;
-  border-radius:5px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

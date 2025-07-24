@@ -2,6 +2,7 @@ import React from "react";
 import Socials from "./../components/dashboard/socials.js";
 import SocialMenu from './../components/dashboard/social_menu.js';
 import PostMenu from './../components/dashboard/post_menu.js';
+import Poster from './../components/post/poster.js';
 
 import axios from "axios";
 
@@ -9,11 +10,17 @@ class DashPage extends React.Component {
   constructor(props) {
      super(props);
      this.state = {
-      showSocialMenu: false,
-      user: null,
-      loading: true,
-    };
+     showSocialMenu: false,
+     showPostModal: false,
+     user: null,
+     loading: true,
+   };
   }
+
+  togglePostModal = () => {
+  this.setState(prev => ({ showPostModal: !prev.showPostModal }));
+};
+
 
   componentDidMount = async ()=>{
 
@@ -75,6 +82,14 @@ class DashPage extends React.Component {
       </nav>
 
       <main className="sm_dashboard-container">
+
+        <Poster isOpen={this.state.showPostModal} onClose={this.togglePostModal} />
+
+
+        <button className="sm_dashboard-create-post" onClick={this.togglePostModal}>
+          Create Post
+        </button>
+
         <div className="sm_dashboard-content">
           <Socials toggleSocialMenu={this.toggleSocialMenu} socialMedia={user.socialMedia} />
           {showSocialMenu && (

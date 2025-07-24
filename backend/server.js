@@ -10,12 +10,14 @@ const mongoose = require("mongoose");
 
 const authRoutes = require("./routes/auth_routes.js");
 const socialRoutes = require("./routes/social_routes.js");
+const postRoutes = require("./routes/post_routes.js");
 
 const app = express();
 
 // Middleware
-app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(express.json({ limit: '500mb' }));
+app.use(express.urlencoded({ extended: true, limit: '500mb' }));
 
 // CORS
 const allowedOrigins = [
@@ -60,7 +62,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 // API Routes
 app.use(authRoutes);
 app.use(socialRoutes);
-
+app.use(postRoutes);
 // Data deletion policy route
 app.get("/data-deletion", (req, res) => {
   res.status(200).send(`

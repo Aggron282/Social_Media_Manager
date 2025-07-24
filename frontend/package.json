@@ -10,6 +10,7 @@
     "axios": "^1.8.4",
     "express-session": "^1.18.1",
     "http-proxy-middleware": "^3.0.5",
+    "lucide-react": "^0.525.0",
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.2",
     "openai": "^4.91.1",
