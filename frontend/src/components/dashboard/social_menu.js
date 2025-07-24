@@ -38,9 +38,9 @@ class SocialMenu extends React.Component {
 
   handleLogin = async (platformName) => {
 
-    const domain = process.env.DOMAIN || "http://localhost:5000";
+    const domain = process.env.REACT_APP_API || "http://localhost:5000";
 
-    var {data} = await axios.get(`${domain}/user`,{withCredentials:true});
+    var {data} = await axios.get(`${domain}api/user`,{withCredentials:true});
 
     var userId = data.user._id;
     console.log(data)
@@ -50,18 +50,14 @@ class SocialMenu extends React.Component {
     }
 
     if (platformName === "instagram") {
-      window.location.href = `${domain}/auth/meta/userId/`;
+      window.location.href = `${domain}api/auth/meta/userId/`;
     } else if (platformName === "facebook") {
-      window.location.href = `${domain}/auth/fblogin/userId/`;
+      window.location.href = `${domain}api/auth/fblogin/userId/`;
     } else {
-      window.location.href = `${domain}/auth/${platformName}/userId/`;
+      window.location.href = `${domain}api/auth/${platformName}/userId/`;
     }
 
 };
-
-
-
-
 
   renderSocialItems = () => {
     return this.state.socials.map((social, index) => (
