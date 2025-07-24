@@ -90,40 +90,44 @@ const PostToInstagram = async (req, res) => {
 
 
 const FacebookLoginCallback = async (req, res) => {
-  const { code } = req.query;
-  const userId = req.session.userId;
-
-  if (!userId) return res.status(401).send("Unauthorized");
-
   try {
-    const tokenResponse = await axios.get('https://graph.facebook.com/v18.0/oauth/access_token', {
+    const { code } = req.query;
+
+    const tokenRes = await axios.get('https://graph.facebook.com/v18.0/oauth/access_token', {
       params: {
-        client_id: FB_CLIENT,
-        client_secret: FB_SECRET,
-        redirect_uri: FB_REDIRECT,
-        code,
+        client_id: process.env.META_CLIENT,
+        client_secret: process.env.META_SECRET,
+        redirect_uri: 'http://localhost:5000/auth/fblogin/callback',
+        code
       }
     });
 
-    const { access_token } = tokenResponse.data;
+    const access_token = tokenRes.data.access_token;
 
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).send("User not found");
-
-    const platform = "facebook";
-    user.socialMedia.push({
-      platform,
-      key: {
-        accessToken: access_token,
-        expiresAt: new Date(Date.now() + 60 * 60 * 1000),
+    // Optionally exchange for long-lived token
+    const longTokenRes = await axios.get('https://graph.facebook.com/v18.0/oauth/access_token', {
+      params: {
+        grant_type: 'fb_exchange_token',
+        client_id: process.env.META_CLIENT,
+        client_secret: process.env.META_SECRET,
+        fb_exchange_token: access_token,
       }
     });
 
-    await user.save();
-    res.redirect(`${front_port}dashboard/`);
+    const longLivedToken = longTokenRes.data.access_token;
+    console.log("dwjon")
+    // You can now use this token to fetch user/page data or save it in DB
+    console.log("Long-lived FB Token:", longLivedToken);
+    var domain = process.env.REACT_APP_API;
+    if(!process.env.REACT_APP_API){
+      domain = "http://localhost:3000";
+    }
+    console.log(`${domain}/dashboard`)
+    // ✅ FIX: Respond or Redirect the user after successful login
+    res.redirect(`${domain}/dashboard`); // or wherever your frontend is
   } catch (err) {
-    console.error("Facebook login error:", err.response?.data || err.message);
-    res.status(500).send("Login failed");
+    console.error("Facebook login callback failed:", err);
+    res.status(500).send("Facebook login failed");
   }
 };
 
