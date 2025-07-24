@@ -16,7 +16,7 @@ const FB_REDIRECT = process.env.FB_REDIRECT;
 const FacebookLoginStart = (req, res) => {
   const userId = req.session.userId;
   if (!userId) return res.status(401).send("Unauthorized");
-
+  console.log(userId)
   const scope = 'public_profile';
   const authURL = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${FB_CLIENT}&redirect_uri=${encodeURIComponent(FB_REDIRECT)}&state=custom_token&scope=${encodeURIComponent(scope)}`;
 

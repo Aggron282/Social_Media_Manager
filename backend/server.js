@@ -56,7 +56,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch(err => console.log("MongoDB connection error:", err));
 
 // Static file serving (React build)
-app.use(express.static(path.join(__dirname, "client/build")));
 
 // API Routes
 app.use(authRoutes);
@@ -89,6 +88,12 @@ app.use((req, res, next) => {
     next(err);
   }
 });
+
+app.use(express.static(path.join(__dirname, "client/build")));
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client/build", "index.html"));
+// });
 
 // Catch-all route for React frontend (client-side routing support)
 

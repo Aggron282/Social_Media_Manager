@@ -50,11 +50,11 @@ class SocialMenu extends React.Component {
     }
 
     if (platformName === "instagram") {
-      window.location.href = `${domain}/auth/meta/userId/${userId}`;
+      window.location.href = `${domain}/auth/meta/userId/`;
     } else if (platformName === "facebook") {
-      window.location.href = `${domain}/auth/fblogin/userId/${userId}`;
+      window.location.href = `${domain}/auth/fblogin/userId/`;
     } else {
-      window.location.href = `${domain}/auth/${platformName}/userId/${userId}`;
+      window.location.href = `${domain}/auth/${platformName}/userId/`;
     }
 
 };
