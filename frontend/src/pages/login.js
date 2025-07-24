@@ -16,7 +16,7 @@ function Login (){
   const tryLogin = async (e) => {
 
     e.preventDefault();
-    var domain = process.env.REACT_APP_API+"/api/" || "http://localhost:5000/";
+    var domain = process.env.REACT_APP_API+"/api" || "http://localhost:5000/";
     console.log(`${domain}/login`)
     console.log(formData);
     const {data} = await axios.post(`${domain}login`, {
