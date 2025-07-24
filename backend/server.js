@@ -98,7 +98,9 @@ app.use(express.static(path.join(__dirname, "client/build")));
 // });
 
 // Catch-all route for React frontend (client-side routing support)
-
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 // Start server
 app.listen(port, () => {
