@@ -38,10 +38,10 @@ class SocialMenu extends React.Component {
 
   handleLogin = async (platformName) => {
 
-    const domain = process.env.REACT_APP_API || "http://localhost:5000";
-
+    const domain = process.env.REACT_APP_API || "http://localhost:5000/";
+    console.log(domain)
     var {data} = await axios.get(`${domain}api/user`,{withCredentials:true});
-
+    console.log(domain)
     var userId = data.user._id;
     console.log(data)
     if (!userId) {

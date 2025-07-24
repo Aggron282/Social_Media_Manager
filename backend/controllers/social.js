@@ -23,6 +23,72 @@ const FacebookLoginStart = (req, res) => {
   res.redirect(authURL);
 };
 
+
+const PostToFacebookPage = async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const user = await User.findById(userId);
+    const fb = user.socialMedia.find(acc => acc.platform === "facebook");
+
+    if (!fb || !fb.meta?.pageId || !fb.meta?.pageToken) {
+      return res.status(400).send("Facebook Page not linked");
+    }
+
+    const { message } = req.body;
+
+    const result = await axios.post(`https://graph.facebook.com/v18.0/${fb.meta.pageId}/feed`, {
+      message,
+      access_token: fb.meta.pageToken,
+    });
+
+    res.status(200).json({ success: true, postId: result.data.id });
+  } catch (error) {
+    console.error("Post to FB failed:", error.response?.data || error.message);
+    res.status(500).send("Failed to post to Facebook");
+  }
+};
+
+const PostToInstagram = async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const user = await User.findById(userId);
+    const fb = user.socialMedia.find(acc => acc.platform === "facebook");
+
+    if (!fb || !fb.meta?.instagramId || !fb.meta?.pageToken) {
+      return res.status(400).send("Instagram not linked");
+    }
+
+    const { image_url, caption } = req.body;
+
+    // Step 1: Create media object
+    const createMedia = await axios.post(
+      `https://graph.facebook.com/v18.0/${fb.meta.instagramId}/media`,
+      {
+        image_url,
+        caption,
+        access_token: fb.meta.pageToken,
+      }
+    );
+
+    // Step 2: Publish media
+    const creationId = createMedia.data.id;
+    const publishMedia = await axios.post(
+      `https://graph.facebook.com/v18.0/${fb.meta.instagramId}/media_publish`,
+      {
+        creation_id: creationId,
+        access_token: fb.meta.pageToken,
+      }
+    );
+
+    res.status(200).json({ success: true, postId: publishMedia.data.id });
+  } catch (error) {
+    console.error("Post to IG failed:", error.response?.data || error.message);
+    res.status(500).send("Failed to post to Instagram");
+  }
+};
+
+
+
 const FacebookLoginCallback = async (req, res) => {
   const { code } = req.query;
   const userId = req.session.userId;

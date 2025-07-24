@@ -17,6 +17,10 @@ function Login (){
 
     e.preventDefault();
     var domain = process.env.REACT_APP_API+"api" || "http://localhost:5000/";
+    if(!process.env.REACT_APP_API){
+      domain ="http://localhost:5000/api";
+    }
+    console.log(domain)
     console.log(`${domain}/auth/login`)
     console.log(formData);
     const {data} = await axios.post(`${domain}/auth/login`, {
