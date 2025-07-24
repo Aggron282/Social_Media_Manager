@@ -60,9 +60,9 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Static file serving (React build)
 
 // API Routes
-app.use(authRoutes);
-app.use(socialRoutes);
-app.use(postRoutes);
+app.use("/api", authRoutes);
+app.use("/api", socialRoutes);
+app.use("/api", postRoutes);
 // Data deletion policy route
 app.get("/data-deletion", (req, res) => {
   res.status(200).send(`

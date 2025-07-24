@@ -12,11 +12,12 @@ router.post("/api/upload", upload.array("images"), (req, res) => {
   res.json({ files: req.files });
 });
 
-router.get('/api/auth/facebook/userId/', socialController.MetaStart);
-router.get('/api/auth/linkedin/userId/', socialController.LinkedinStart);
-router.get('/api/auth/instagram/userId/', socialController.MetaStart);
-router.get('/api/auth/fblogin/userId/', socialController.FacebookLoginStart);
-router.get('/api/auth/fblogin/callback', socialController.FacebookLoginCallback);
+router.get('/auth/facebook/userId/', socialController.MetaStart);
+router.get('/auth/linkedin/userId/', socialController.LinkedinStart);
+router.get('/auth/instagram/userId/', socialController.MetaStart);
+router.get('/auth/fblogin/userId/', socialController.FacebookLoginStart);
+router.get('/auth/fblogin/callback', socialController.FacebookLoginCallback);
+
 router.get('/api/user', socialController.GetUser);
 
 module.exports = router;
