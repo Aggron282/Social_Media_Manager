@@ -11,6 +11,6 @@ router.get('/auth/linkedin/userId/:id', socialController.LinkedinStart);
 router.get('/auth/instagram/userId/:id', socialController.MetaStart);
 router.get('/auth/fblogin/userId/:id', socialController.FacebookLoginStart);
 router.get('/auth/fblogin/callback', socialController.FacebookLoginCallback);
-router.get('/user/:id', socialController.GetUser);
+router.get('/user', socialController.GetUser);
 
 module.exports = router;

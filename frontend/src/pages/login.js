@@ -22,10 +22,12 @@ function Login (){
     const {data} = await axios.post(`${domain}login`, {
       username: formData.username,
       password: formData.password,
+    },{
+      withCredentials:true
     });
 
     if(data.userId != null){
-        window.location.assign(`/dashboard/${data.userId}`);
+        window.location.assign(`/dashboard/`);
     }else{
       alert("Wrong Credentials");
     }

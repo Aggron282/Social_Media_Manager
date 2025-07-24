@@ -19,7 +19,7 @@ function App() {
        <Route path="/" element={<Homepage />} />
        <Route path="/login" element={<Login />} />
        <Route path="/create_account" element={<CreateAccount />} />
-       <Route path="/dashboard/:id" element={<DashPage />} />
+       <Route path="/dashboard/" element={<DashPage />} />
        <Route path="/private-policy" element={<PrivatePolicy />} />
        <Route path="/terms-of-service" element={<TermsOfService />} />
 

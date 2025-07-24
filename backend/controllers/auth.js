@@ -15,11 +15,19 @@ const Login = async (req, res) => {
       }
 
       const match = await foundUser.matchPassword(req.body.password);
-      console.log(foundUser,match,req.body.password)
+
       if (match) {
         req.session.userId = foundUser._id;
-        console.log(req.session , "s")
-        res.json({ error: null, userId: foundUser._id });
+        console.log(req.session.userId, "S")
+        req.session.save(err => {
+        if (err) {
+          console.error("Session save error:", err);
+          return res.status(500).json({ error: "Session not saved" });
+        }
+
+        res.status(200).json({ message: "Login successful", userId:req.session.userId });
+
+      });
       } else {
         res.json({ error: "Invalid Credentials", user: null });
       }

@@ -20,11 +20,11 @@ class DashPage extends React.Component {
     const path = window.location.pathname;
     const segments = path.split("/");
 
-    var userId = segments[2];
-    console.log(userId)
+
     var domain = process.env.DOMAIN || "http://localhost:5000";
+    console.log(`${domain}/user/`);
     axios
-      .get(`${domain}/user/${userId}`, {
+      .get(`${domain}/user/`, {
         withCredentials: true,
       })
       .then((res) => {

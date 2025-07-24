@@ -4,6 +4,7 @@ import InstaIcon from "./../../imgs/insta_icon.jpg";
 import Google from "./../../imgs/google.png";
 import NextdoorIcon from "./../../imgs/nextdoor.png";
 import FacebookIcon from "./../../imgs/facebook_icon.png";
+import axios from "axios";
 
 class SocialMenu extends React.Component {
   constructor(props) {
@@ -35,25 +36,27 @@ class SocialMenu extends React.Component {
     }
   }
 
-  handleLogin = (platformName) => {
-  const path = window.location.pathname;
-  const segments = path.split("/");
-  let userId = segments.includes("dashboard") ? segments[segments.indexOf("dashboard") + 1] : null;
+  handleLogin = async (platformName) => {
 
-  if (!userId) {
-    console.error("User ID not found in URL");
-    return;
-  }
+    const domain = process.env.DOMAIN || "http://localhost:5000";
 
-  const domain = process.env.DOMAIN || "http://localhost:5000";
+    var {data} = await axios.get(`${domain}/user`,{withCredentials:true});
 
-  if (platformName === "instagram") {
-    window.location.href = `${domain}/auth/meta/userId/${userId}`;
-  } else if (platformName === "facebook") {
-    window.location.href = `${domain}/auth/fblogin/userId/${userId}`;
-  } else {
-    window.location.href = `${domain}/auth/${platformName}/userId/${userId}`;
-  }
+    var userId = data.user._id;
+    console.log(data)
+    if (!userId) {
+      console.error("User ID not found in URL");
+      return;
+    }
+
+    if (platformName === "instagram") {
+      window.location.href = `${domain}/auth/meta/userId/${userId}`;
+    } else if (platformName === "facebook") {
+      window.location.href = `${domain}/auth/fblogin/userId/${userId}`;
+    } else {
+      window.location.href = `${domain}/auth/${platformName}/userId/${userId}`;
+    }
+
 };
 
 

@@ -1,67 +1,69 @@
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
-var port = process.env.PORT || 5000;
-var express = require("express");
-var session = require("express-session");
-var cors = require("cors");
+const port = process.env.PORT || 5000;
+const express = require("express");
+const session = require("express-session");
+const cors = require("cors");
 const MongoStore = require("connect-mongo");
-var mongoose = require("mongoose");
-var authRoutes = require("./routes/auth_routes.js")
-var socialRoutes = require("./routes/social_routes.js")
+const mongoose = require("mongoose");
 
-var app = express();
+const authRoutes = require("./routes/auth_routes.js");
+const socialRoutes = require("./routes/social_routes.js");
 
-app.use(express.static(path.join(__dirname, "../frontend/build")));
+const app = express();
 
+// Middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-// Allow requests from your frontend domain
+// CORS
 const allowedOrigins = [
-  'http://localhost:3000',
-  'https://socialmediamanager-4e8ed621d69b.herokuapp.com'
+  "http://localhost:3000",
+  "https://socialmediamanager-4e8ed621d69b.herokuapp.com"
 ];
-
 app.use(cors({
   origin: allowedOrigins,
-  credentials: true,
+  credentials: true
 }));
 
-
-
-app.set('trust proxy', 1);
-
+// Session
+app.set("trust proxy", 1);
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'secret_key',
+  secret: process.env.SESSION_SECRET || "secret_key",
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: false, // Only true in production with HTTPS
-    maxAge: 1000 * 60 * 60 * 24,
-    sameSite: 'lax', // ✅ THIS IS IMPORTANT
-    path: '/',       // ✅ ensures cookie applies to all routes
+    secure: false, // set to true if behind HTTPS in production
+    sameSite: "lax",
+    path: "/",
+    maxAge: 1000 * 60 * 60 * 24 // 1 day
   },
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
-    collectionName: 'session',
-    ttl: 14 * 24 * 60 * 60,
+    collectionName: "session",
+    ttl: 14 * 24 * 60 * 60
   })
 }));
 
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.log("MongoDB connection error:", err));
 
-// Serve static files from React
-app.use(express.static(path.join(__dirname, 'client/build')));
+// Static file serving (React build)
+app.use(express.static(path.join(__dirname, "client/build")));
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-
+// API Routes
 app.use(authRoutes);
 app.use(socialRoutes);
 
-
-
-app.get('/data-deletion', (req, res) => {
+// Data deletion policy route
+app.get("/data-deletion", (req, res) => {
   res.status(200).send(`
     <html>
       <head><title>Data Deletion</title></head>
@@ -74,51 +76,24 @@ app.get('/data-deletion', (req, res) => {
   `);
 });
 
-const frontendRoutes = [
-  "/",
-  "/dashboard/:id",
-  "/login",
-  "/create_account",
-  "/forgot"
-];
-
-frontendRoutes.forEach(route => {
-  app.get(route, (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build", "index.html"));
-  });
-});
-
-
-
-
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log('MongoDB connection error:', err));
-
-
-  app.use(express.static(path.join(__dirname, "client/build")));
-
-  app.use((req, res, next) => {
+// Handle malformed URL errors gracefully
+app.use((req, res, next) => {
   try {
-    decodeURIComponent(req.path); // will throw if malformed
+    decodeURIComponent(req.path);
     next();
   } catch (err) {
     if (err instanceof URIError) {
-      console.error('Malformed URL:', req.url);
-      return res.status(400).send('Malformed URL');
+      console.error("Malformed URL:", req.url);
+      return res.status(400).send("Malformed URL");
     }
     next(err);
   }
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build", "index.html"));
-})
+// Catch-all route for React frontend (client-side routing support)
 
-app.listen(port,()=>{
-  console.log("App is running");
+
+// Start server
+app.listen(port, () => {
+  console.log(`App is running on port ${port}`);
 });
