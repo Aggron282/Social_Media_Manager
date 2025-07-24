@@ -1,7 +1,7 @@
 const User = require("./../models/User.js");
 const bcrypt = require("bcrypt");
-const front_port = process.env.DOMAIN || "http://localhost:3000/"
-const back_port = process.env.DOMAIN || "http://localhost:5000/"
+const front_port = process.env.REACT_APP_API || "http://localhost:3000/"
+const back_port = process.env.REACT_APP_API || "http://localhost:5000/"
 
 const Login = async (req, res) => {
   try {

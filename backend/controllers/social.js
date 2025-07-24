@@ -6,8 +6,8 @@ const axios = require("axios");
 const User = require("./../models/User.js");
 const mongoose = require("mongoose");
 
-const front_port = process.env.DOMAIN || "http://localhost:3000/"
-const back_port = process.env.DOMAIN || "http://localhost:5000/"
+const front_port = process.env.REACT_APP_API || "http://localhost:3000/"
+const back_port = process.env.REACT_APP_API || "http://localhost:5000/"
 
 const FB_CLIENT = process.env.FB_LOGIN_ID;
 const FB_SECRET = process.env.FB_SECRET;
