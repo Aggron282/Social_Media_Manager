@@ -31,7 +31,7 @@ class DashPage extends React.Component {
     var domain = process.env.REACT_APP_API+"api/" || "http://localhost:5000";
     console.log(`${domain}/user/`);
     axios
-      .get(`${domain}/user/`, {
+      .get(`${domain}user/`, {
         withCredentials: true,
       })
       .then((res) => {
