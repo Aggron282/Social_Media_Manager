@@ -28,7 +28,7 @@ class DashPage extends React.Component {
     const segments = path.split("/");
 
 
-    var domain = process.env.DOMAIN || "http://localhost:5000";
+    var domain = process.env.REACT_APP_API || "http://localhost:5000";
     console.log(`${domain}/user/`);
     axios
       .get(`${domain}/user/`, {
