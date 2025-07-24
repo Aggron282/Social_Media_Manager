@@ -80,7 +80,7 @@ export default function Poster({ isOpen, onClose }) {
  formData.append('platforms', JSON.stringify(selectedPlatforms));
 
  images.forEach((file) => formData.append('images', file));
- const domain = process.env.REACT_APP_API || "http://localhost:5000";
+ const domain = process.env.REACT_APP_API+"/api/" || "http://localhost:5000";
  try {
    await axios.post(`${domain}/api/posts/`, formData, {
      headers: {

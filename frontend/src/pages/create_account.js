@@ -7,7 +7,7 @@ const CreateAccount = () => {
   const [isComplete, setIsComplete] = useState(false);
   const [inputErrors, setInputErrors] = useState({});
 
-  var domain = process.env.REACT_APP_API || "http://localhost:5000";
+  var domain = process.env.REACT_APP_API+"/api/" || "http://localhost:5000";
 
   const [formData, setFormData] = useState({
     fullName: "",
