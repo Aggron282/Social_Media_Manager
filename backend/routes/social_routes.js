@@ -8,7 +8,7 @@ router.get("/meta/callback", socialController.MetaCallback);
 router.get('/auth/linkedin/callback', socialController.LinkedinCallback);
 
 
-router.post("/api/upload", upload.array("images"), (req, res) => {
+router.post("/upload", upload.array("images"), (req, res) => {
   res.json({ files: req.files });
 });
 
@@ -18,6 +18,6 @@ router.get('/auth/instagram/userId/', socialController.MetaStart);
 router.get('/auth/fblogin/userId/', socialController.FacebookLoginStart);
 router.get('/auth/fblogin/callback', socialController.FacebookLoginCallback);
 
-router.get('/api/user', socialController.GetUser);
+router.get('/user', socialController.GetUser);
 
 module.exports = router;
