@@ -102,10 +102,20 @@ mongoose.connect(process.env.MONGODB_URI, {
 
   app.use(express.static(path.join(__dirname, "client/build")));
 
-  // All other routes (not API/backend) go to React
-  app.get(/^\/(?!api|auth|login|social|dashboard|static).*/, (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build", "index.html"));
-  });
+  app.use((req, res, next) => {
+  try {
+    decodeURIComponent(req.path); // will throw if malformed
+    next();
+  } catch (err) {
+    if (err instanceof URIError) {
+      console.error('Malformed URL:', req.url);
+      return res.status(400).send('Malformed URL');
+    }
+    next(err);
+  }
+});
+
+  
 
 app.listen(port,()=>{
   console.log("App is running");
