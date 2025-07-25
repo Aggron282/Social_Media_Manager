@@ -229,7 +229,7 @@ const META_SECRET = process.env.META_SECRET;
 const META_REDIRECT = process.env.META_REDIRECT;
 
 const MetaStart = (req, res) => {
-  const scope = 'public_profile';
+  const scope = 'pages_show_list,instagram_basic,instagram_content_publish,pages_read_engagement,pages_manage_posts';
   const state = 'fb_csrf_token';
   const userId = req.session.userId;
 

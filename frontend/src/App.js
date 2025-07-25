@@ -5,6 +5,7 @@ import DashPage  from "./pages/dashpage.js";
 import CreateAccount  from "./pages/create_account.js";
 import PrivatePolicy  from "./pages/private_policy.js";
 import TermsOfService  from "./pages/terms_of_service.js";
+import Feed  from "./pages/feed.js";
 
 import { BrowserRouter as Router,Routes,  Route, Switch, Link } from 'react-router-dom';
 function App() {
@@ -22,6 +23,7 @@ function App() {
        <Route path="/dashboard/" element={<DashPage />} />
        <Route path="/private-policy" element={<PrivatePolicy />} />
        <Route path="/terms-of-service" element={<TermsOfService />} />
+       <Route path="/feed" element={<Feed />} />
 
      </Routes>
    </div>
