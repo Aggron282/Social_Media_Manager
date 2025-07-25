@@ -20,7 +20,14 @@ body {
   display: flex;
   min-height: 100vh;
 }
-
+p{
+  font-size:18px;
+}
+.caption{
+  margin-top: 40px;
+  width:100%;
+  display: block;
+}
 .sidebar {
   width: 250px;
   background: var(--sidebar-dark);
@@ -63,11 +70,17 @@ body {
   cursor: pointer;
   font-size: 15px;
 }
-
+span{
+  font-size:16px;
+}
 .main-feed {
   flex: 1;
   padding: 40px;
   background: var(--bg-dark);
+}
+svg{
+  width:30px;
+  height:30px;
 }
 
 .post-grid {
@@ -80,6 +93,9 @@ body {
   position: relative;
   background: var(--card-dark);
   border-radius: 12px;
+  padding:40px;
+  padding-left: 10px;
+  padding-right: 10px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0,0,0,0.5);
   transition: transform 0.2s;
@@ -88,10 +104,17 @@ body {
 .post-card:hover {
   transform: scale(1.01);
 }
-
+a {
+  text-decoration: none;
+  color:inherit;
+  padding: 0px;
+}
 .post-image {
   width: 100%;
+  justify-self:center;
   height: 300px;
+  margin-top: 10%;
+  background:white;
   object-fit: cover;
 }
 

@@ -15,9 +15,9 @@ router.post("/upload", upload.array("images"), (req, res) => {
 router.get('/auth/facebook/userId/', socialController.MetaStart);
 router.get('/auth/linkedin/userId/', socialController.LinkedinStart);
 router.get('/auth/instagram/userId/', socialController.MetaStart);
-router.get('/auth/fblogin/userId/', socialController.FacebookLoginStart);
-router.get('/auth/fblogin/callback', socialController.FacebookLoginCallback);
-
+// router.get('/auth/fblogin/userId/', socialController.FacebookLoginStart);
+// router.get('/auth/fblogin/callback', socialController.FacebookLoginCallback);
+router.get("/posts/fb",socialController.GetFacebookPosts);
 router.get('/user', socialController.GetUser);
 
 module.exports = router;

@@ -13,15 +13,42 @@ const FB_CLIENT = process.env.FB_LOGIN_ID;
 const FB_SECRET = process.env.FB_SECRET;
 const FB_REDIRECT = process.env.FB_REDIRECT;
 
-const FacebookLoginStart = (req, res) => {
-  const userId = req.session.userId;
-  if (!userId) return res.status(401).send("Unauthorized");
-  console.log(userId)
-  const scope = 'public_profile';
-  const authURL = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${FB_CLIENT}&redirect_uri=${encodeURIComponent(FB_REDIRECT)}&state=custom_token&scope=${encodeURIComponent(scope)}`;
 
-  res.redirect(authURL);
+const GetFacebookPosts = async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const user = await User.findById(userId);
+    const fb = user.socialMedia.find(acc => acc.platform === "facebook");
+
+    if (!fb || !fb.meta?.pageId || !fb.meta?.pageToken) {
+      return res.status(400).send("Facebook Page not linked");
+    }
+
+    const fields = 'full_picture,created_time,message';
+    const result = await axios.get(`https://graph.facebook.com/v18.0/${fb.meta.pageId}/posts`, {
+      params: {
+        fields,
+        access_token: fb.meta.pageToken
+      }
+    });
+
+    res.status(200).json({ success: true, posts: result.data.data });
+  } catch (error) {
+    console.error("Failed to get FB posts:", error.response?.data || error.message);
+    res.status(500).send("Failed to fetch Facebook posts");
+  }
 };
+
+
+// const FacebookLoginStart = (req, res) => {
+//   const userId = req.session.userId;
+//   if (!userId) return res.status(401).send("Unauthorized");
+//   console.log(userId)
+//   const scope = 'public_profile';
+//   const authURL = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${FB_CLIENT}&redirect_uri=${encodeURIComponent(FB_REDIRECT)}&state=custom_token&scope=${encodeURIComponent(scope)}`;
+//
+//   res.redirect(authURL);
+// };
 
 
 const PostToFacebookPage = async (req, res) => {
@@ -89,47 +116,47 @@ const PostToInstagram = async (req, res) => {
 
 
 
-const FacebookLoginCallback = async (req, res) => {
-  try {
-    const { code } = req.query;
-
-    const tokenRes = await axios.get('https://graph.facebook.com/v18.0/oauth/access_token', {
-      params: {
-        client_id: process.env.META_CLIENT,
-        client_secret: process.env.META_SECRET,
-        redirect_uri: 'http://localhost:5000/auth/fblogin/callback',
-        code
-      }
-    });
-
-    const access_token = tokenRes.data.access_token;
-
-    // Optionally exchange for long-lived token
-    const longTokenRes = await axios.get('https://graph.facebook.com/v18.0/oauth/access_token', {
-      params: {
-        grant_type: 'fb_exchange_token',
-        client_id: process.env.META_CLIENT,
-        client_secret: process.env.META_SECRET,
-        fb_exchange_token: access_token,
-      }
-    });
-
-    const longLivedToken = longTokenRes.data.access_token;
-    console.log("dwjon")
-    // You can now use this token to fetch user/page data or save it in DB
-    console.log("Long-lived FB Token:", longLivedToken);
-    var domain = process.env.REACT_APP_API;
-    if(!process.env.REACT_APP_API){
-      domain = "http://localhost:3000";
-    }
-    console.log(`${domain}/dashboard`)
-    // ✅ FIX: Respond or Redirect the user after successful login
-    res.redirect(`${domain}/dashboard`); // or wherever your frontend is
-  } catch (err) {
-    console.error("Facebook login callback failed:", err);
-    res.status(500).send("Facebook login failed");
-  }
-};
+// const FacebookLoginCallback = async (req, res) => {
+//   try {
+//     const { code } = req.query;
+//
+//     const tokenRes = await axios.get('https://graph.facebook.com/v18.0/oauth/access_token', {
+//       params: {
+//         client_id: process.env.META_CLIENT,
+//         client_secret: process.env.META_SECRET,
+//         redirect_uri: 'http://localhost:5000/auth/fblogin/callback',
+//         code
+//       }
+//     });
+//
+//     const access_token = tokenRes.data.access_token;
+//
+//     // Optionally exchange for long-lived token
+//     const longTokenRes = await axios.get('https://graph.facebook.com/v18.0/oauth/access_token', {
+//       params: {
+//         grant_type: 'fb_exchange_token',
+//         client_id: process.env.META_CLIENT,
+//         client_secret: process.env.META_SECRET,
+//         fb_exchange_token: access_token,
+//       }
+//     });
+//
+//     const longLivedToken = longTokenRes.data.access_token;
+//     console.log("dwjon")
+//     // You can now use this token to fetch user/page data or save it in DB
+//     console.log("Long-lived FB Token:", longLivedToken);
+//     var domain = process.env.REACT_APP_API;
+//     if(!process.env.REACT_APP_API){
+//       domain = "http://localhost:3000";
+//     }
+//     console.log(`${domain}/dashboard`)
+//     // ✅ FIX: Respond or Redirect the user after successful login
+//     res.redirect(`${domain}/dashboard`); // or wherever your frontend is
+//   } catch (err) {
+//     console.error("Facebook login callback failed:", err);
+//     res.status(500).send("Facebook login failed");
+//   }
+// };
 
 const MetaCallback = async (req, res) => {
   const { code } = req.query;
@@ -290,10 +317,12 @@ const LinkedinCallback = async (req, res) => {
   }
 };
 
+module.exports.GetFacebookPosts = GetFacebookPosts;
+
 module.exports.GetUser = GetUser;
 module.exports.MetaCallback = MetaCallback;
 module.exports.LinkedinCallback = LinkedinCallback;
 module.exports.LinkedinStart = LinkedinStart;
-module.exports.FacebookLoginStart = FacebookLoginStart;
-module.exports.FacebookLoginCallback = FacebookLoginCallback;
+// module.exports.FacebookLoginStart = FacebookLoginStart;
+// module.exports.FacebookLoginCallback = FacebookLoginCallback;
 module.exports.MetaStart = MetaStart;
